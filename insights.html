@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q94YYVKNFG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q94YYVKNFG');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KIRIN Insights | 住宅ローン・金利・不動産ニュース</title>
+<meta name="description" content="住宅ローン・金利・不動産の最新ニュース、KIRIN独自の分析レポートとコラム。">
+<link rel="icon" type="image/jpeg" href="Icon_insights.jpg">
+<link rel="shortcut icon" type="image/jpeg" href="Icon_insights.jpg">
+<link rel="apple-touch-icon" href="Icon_insights.jpg">
+<meta name="apple-mobile-web-app-title" content="Insights">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1f5673">
+
+<!-- 既存サイトの共通スタイルを継承（ヘッダー/フォント/カラー） -->
+<link rel="stylesheet" href="site.css">
+<!-- site.css が Zen Kaku Gothic New を読み込んでいれば下記は不要（重複しても無害） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================
+   insights 専用スタイル（.ki- で名前空間化して site.css と衝突回避）
+   カスタムプロパティも --ki- 接頭辞でグローバル変数と衝突回避。
+   ※ --ki-accent を既存サイトのアクセント色に差し替えてください。
+   =========================================================== */
+.ki-insights {
+  --ki-accent: #1f5673;      /* ← 既存サイトのアクセント色に合わせて変更 */
+  --ki-ink: #1c1c1e;
+  --ki-sub: #6b7280;
+  --ki-line: #e5e7eb;
+  --ki-bg: #f7f8fa;
+  --ki-card: #ffffff;
+  --ki-radius: 14px;
+  font-family: "Zen Kaku Gothic New", system-ui, sans-serif;
+  color: var(--ki-ink);
+  background: var(--ki-bg);
+  line-height: 1.7;
+}
+.ki-insights *, .ki-insights *::before, .ki-insights *::after { box-sizing: border-box; }
+
+/* 固定ヘッダー */
+.ki-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: #ffffff;
+  border-bottom: 1px solid var(--ki-line);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  transform: translateZ(0);
+}
+.ki-header__inner {
+  max-width: 1000px; margin: 0 auto; padding: 12px clamp(14px, 4vw, 28px);
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+}
+.ki-brand { font-weight: 700; font-size: 1.15rem; letter-spacing: .02em; text-decoration: none; color: var(--ki-ink); white-space: nowrap; }
+.ki-brand span { color: var(--ki-accent); }
+.ki-brandrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ki-brand__sep { width: 1px; height: 15px; background: var(--ki-line); flex: none; }
+.ki-brand__tag { font-size: .8rem; font-weight: 500; color: var(--ki-accent); }
+.ki-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.ki-nav a {
+  text-decoration: none; color: var(--ki-sub); font-size: .88rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 999px; transition: background .15s, color .15s;
+}
+.ki-nav a:hover { color: var(--ki-accent); background: rgba(31,86,115,.08); }
+.ki-nav a.ki-nav--home { color: var(--ki-accent); }
+.ki-nav__sep { align-self: center; color: var(--ki-sub); opacity: .45; padding: 0 2px; user-select: none; }
+.ki-nav a.ki-nav__ext { color: #fff; background: var(--ki-accent); font-weight: 700; }
+.ki-nav a.ki-nav__ext:hover { color: #fff; background: var(--ki-accent); opacity: .9; }
+
+/* レイアウト：1カラム・中央寄せ・幅広め（スマホは横幅にfit） */
+.ki-wrap { width: 100%; max-width: 1000px; margin: 0 auto; padding: 24px clamp(14px, 4vw, 28px) 80px; }
+.ki-grid { display: block; }
+.ki-main { min-width: 0; }
+
+/* セクション */
+.ki-section { scroll-margin-top: calc(var(--ki-header-h, 96px) + 16px); margin-bottom: 44px; }
+.ki-section__head { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--ki-line); }
+.ki-section__title { font-size: 1.4rem; font-weight: 700; margin: 0; color: var(--ki-accent); display: inline-flex; align-items: center; }
+.ki-section__title::before { content: ""; width: 9px; height: 9px; background: var(--ki-accent); border-radius: 2px; margin-right: 9px; flex: none; }
+.ki-section__en { font-size: .72rem; letter-spacing: .18em; color: var(--ki-sub); text-transform: uppercase; }
+.ki-head-more { margin-left: auto; align-self: center; font-size: .76rem; font-weight: 700; color: var(--ki-accent); text-decoration: none; white-space: nowrap; }
+.ki-head-more:hover { text-decoration: underline; }
+
+/* ニュース一覧（本文幅いっぱい＝マーケットと同じ幅） */
+.ki-news { list-style: none; margin: 0; padding: 0; max-width: none; }
+.ki-news__item { padding: 6px 2px; border-bottom: 1px solid var(--ki-line); display: flex; gap: 10px; align-items: baseline; }
+.ki-news__no { flex: none; font-family: "Space Grotesk", system-ui, sans-serif; font-size: .78rem; font-weight: 600; color: var(--ki-accent); min-width: 1.6em; text-align: right; font-variant-numeric: tabular-nums; }
+.ki-news__body { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: 2px; }
+.ki-news__title { color: var(--ki-ink); text-decoration: none; font-weight: 500; font-size: .94rem; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+a.ki-news__title:hover { color: var(--ki-accent); text-decoration: underline; }
+.ki-news__summary { font-size: .82rem; color: var(--ki-sub); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ki-news__meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: .76rem; color: var(--ki-sub); }
+/* 過去ニュースのグループ見出し */
+.ki-arc__group { margin-top: 18px; }
+.ki-arc__label { font-size: .82rem; font-weight: 700; color: var(--ki-sub); letter-spacing: .04em; padding: 6px 2px; border-bottom: 1px solid var(--ki-line); margin-bottom: 2px; }
+.ki-arc__group .ki-news { margin-left: 4px; padding-left: 12px; border-left: 2px solid var(--ki-line); }
+.ki-news__date { font-variant-numeric: tabular-nums; }
+.ki-news__source::before { content: "・"; margin-right: 6px; }
+
+/* タグ（見出し後ろのピル） */
+.ki-tags { display: inline-flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+.ki-tag { font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; line-height: 1.5; white-space: nowrap; }
+.ki-tag[data-t="金利・日銀"]   { background:#e7f0f6; color:#1f5673; }
+.ki-tag[data-t="住宅ローン"]   { background:#eaf3ec; color:#2f6b43; }
+.ki-tag[data-t="不動産・市場"] { background:#f4eee6; color:#8a5a2b; }
+.ki-tag[data-t="開発・デベロッパー"] { background:#efe9f4; color:#5a3f7a; }
+.ki-tag[data-t="その他"]       { background:#eef0f2; color:#6b7280; }
+.ki-tag[data-t="三井"], .ki-tag[data-t="三菱"], .ki-tag[data-t="野村"], .ki-tag[data-t="住友"], .ki-tag[data-t="東建"], .ki-tag[data-t="日鉄"], .ki-tag[data-t="東急"] { background:#e8e3da; color:#5b4a35; }
+
+/* デベロッパー絞り込みチップ */
+.ki-devfilter { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.ki-devchip { font-size:.8rem; font-weight:700; padding:4px 12px; border-radius:999px; border:1px solid var(--ki-line); background:#fff; color:var(--ki-sub); cursor:pointer; font-family:inherit; }
+.ki-devchip:hover { border-color:var(--ki-accent); color:var(--ki-accent); }
+.ki-devchip.active { background:var(--ki-accent); color:#fff; border-color:var(--ki-accent); }
+
+.ki-more { display:block; width:100%; margin-top:16px; padding:10px; border:1px solid var(--ki-line); background:var(--ki-card); border-radius:10px; color:var(--ki-accent); font-weight:700; font-family:inherit; cursor:pointer; }
+.ki-more:hover { background:#fff; border-color:var(--ki-accent); }
+.ki-state { color: var(--ki-sub); padding: 16px 2px; font-size:.92rem; }
+.ki-updated { font-size:.76rem; color: var(--ki-sub); margin: 0 0 12px; }
+
+/* Kirin Pics */
+.ki-pics { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 16px; align-items: start; }
+/* コラム：スリムな3タイル横並び */
+#columnsX { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; align-items: start; }
+#columnsX .ki-xart__img { aspect-ratio: 16/9; }
+#columnsX .ki-xart__body { padding: 9px 11px; gap: 4px; }
+#columnsX .ki-xart__title { font-size: .86rem; }
+#columnsX .ki-xart__badge { font-size: .68rem; }
+#columnsX .ki-xart__go { font-size: .76rem; }
+#columnsX .twitter-tweet { margin: 0 !important; }
+.ki-embed { min-width: 0; }
+.ki-xart { display:flex; flex-direction:column; text-decoration:none; color:var(--ki-ink); border:1px solid var(--ki-line); border-radius:14px; overflow:hidden; background:#fff; transition:border-color .15s, transform .15s; }
+.ki-xart:hover { border-color:var(--ki-accent); transform:translateY(-2px); }
+.ki-xart__img { aspect-ratio:16/9; background:#e9edf0; }
+.ki-xart__img img { width:100%; height:100%; object-fit:cover; display:block; }
+.ki-xart__body { padding:12px 14px; display:flex; flex-direction:column; gap:6px; }
+.ki-xart__badge { display:inline-flex; align-items:center; gap:5px; font-size:.72rem; font-weight:700; color:var(--ki-sub); }
+.ki-xart__title { font-size:1rem; font-weight:700; margin:0; line-height:1.4; }
+.ki-xart__go { font-size:.82rem; font-weight:700; color:var(--ki-accent); }
+.ki-embed .twitter-tweet { margin: 0 !important; }
+.ki-pic { position: relative; aspect-ratio: 4/3; border-radius: var(--ki-radius); overflow: hidden; background:#e9edf0; }
+.ki-pic img { width:100%; height:100%; object-fit: cover; display:block; }
+.ki-pic figcaption { position:absolute; left:0; right:0; bottom:0; padding:8px 10px; font-size:.78rem; color:#fff; background: linear-gradient(transparent, rgba(0,0,0,.55)); }
+
+/* カード（レポート/コラム） */
+.ki-cards { display: grid; gap: 12px; }
+.ki-report__title { font-size: 1.02rem; font-weight: 700; margin: 18px 0 8px; }
+.ki-report__title:first-child { margin-top: 4px; }
+.ki-chartwrap { position: relative; height: 340px; background: var(--ki-card); border: 1px solid var(--ki-line); border-radius: var(--ki-radius); padding: 12px 10px 6px; }
+.ki-report__note { font-size: .8rem; color: var(--ki-sub); margin: 10px 2px 0; }
+.ki-report__period { font-size: .8rem; font-weight: 500; color: var(--ki-sub); margin-left: 6px; }
+.ki-data-period { display: inline-block; font-size: .82rem; font-weight: 700; color: var(--ki-accent); background: #eef3f6; border-radius: 999px; padding: 4px 12px; margin: 0 0 14px; }
+.ki-report__desc { font-size: .85rem; color: var(--ki-sub); line-height: 1.75; margin: 10px 2px 4px; }
+.ki-report__desc b { color: var(--ki-ink); font-weight: 700; }
+.ki-report__src { font-size: .74rem; color: var(--ki-sub); line-height: 1.7; margin: 6px 2px 0; }
+@media (max-width: 600px){ .ki-chartwrap { height: 280px; } }
+.ki-cardlink { display:flex; flex-direction:column; gap:6px; padding:16px 18px; background:var(--ki-card); border:1px solid var(--ki-line); border-radius:var(--ki-radius); text-decoration:none; color:var(--ki-ink); transition: border-color .15s, transform .15s; }
+.ki-cardlink:hover { border-color: var(--ki-accent); transform: translateY(-2px); }
+.ki-cardlink h3 { margin:0; font-size:1.02rem; font-weight:700; }
+.ki-cardlink p { margin:0; font-size:.88rem; color:var(--ki-sub); }
+.ki-cardlink .ki-cardlink__go { font-size:.8rem; color:var(--ki-accent); font-weight:700; }
+
+/* 右サイドバー：X投稿（自前カード） */
+.ki-aside__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.ki-aside__title { font-size:1rem; font-weight:700; margin:0; }
+.ki-follow { font-size:.8rem; font-weight:700; text-decoration:none; color:#fff; background:#000; padding:6px 14px; border-radius:999px; }
+.ki-follow--inline { margin-left: auto; align-self: center; }
+.ki-follow--sm { font-size:.72rem; padding:4px 11px; }
+.ki-ticker { display: flex; flex-direction: column; gap: 10px; }
+.ki-mkt { border: 1px solid var(--ki-line); border-radius: 12px; overflow: hidden; background: #fff; }
+.ki-ticker__note { font-size:.68rem; color:var(--ki-sub); margin:10px 2px 0; line-height:1.6; }
+.ki-xfeed { display:flex; flex-direction:column; gap:14px; max-height: calc(100vh - 140px); overflow:auto; padding-right:4px; }
+.ki-xcard { background:var(--ki-card); border:1px solid var(--ki-line); border-radius:var(--ki-radius); padding:14px; }
+.ki-xcard__top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.ki-xcard__avatar { width:40px; height:40px; border-radius:50%; background:var(--ki-accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex:0 0 auto; }
+.ki-xcard__id { display:flex; flex-direction:column; line-height:1.25; min-width:0; }
+.ki-xcard__name { font-weight:700; font-size:.9rem; }
+.ki-xcard__handle { font-size:.8rem; color:var(--ki-sub); }
+.ki-xcard__x { margin-left:auto; font-weight:900; font-size:1.1rem; color:var(--ki-ink); }
+.ki-xcard__body { font-size:.9rem; white-space:pre-line; word-break:break-word; }
+.ki-xcard__img { margin-top:10px; border-radius:10px; overflow:hidden; }
+.ki-xcard__img img { width:100%; display:block; }
+.ki-xcard__foot { margin-top:10px; display:flex; align-items:center; justify-content:space-between; font-size:.78rem; color:var(--ki-sub); }
+.ki-xcard__link { color:var(--ki-accent); font-weight:700; text-decoration:none; }
+
+/* レスポンシブ：1カラム化、Xは下に回り込み */
+@media (max-width: 880px) {
+  .ki-grid { grid-template-columns: 1fr; }
+  .ki-aside { position: static; }
+  .ki-xfeed { max-height: none; }
+}
+
+@media (max-width: 640px) {
+  .ki-brand__sep { display: none; }
+  .ki-brand__tag { flex-basis: 100%; font-size: .76rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ki-cardlink { transition: none; }
+}
+
+/* ---------- Footer（index.html と統一） ---------- */
+footer.site-footer { background: rgba(255,255,255,.72); border-top: 1px solid #e2e0db; padding: 16px 24px 22px; text-align: center; margin-top: 48px; }
+.footer-disclaimer { font-size: 10px; color: #6b6861; line-height: 1.7; max-width: 680px; margin: 0 auto 14px; }
+.footer-credit { display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 12px; color: #6b6861; flex-wrap: wrap; }
+.footer-icon { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid #e2e0db; flex-shrink: 0; }
+.footer-x-link { display: inline-flex; align-items: center; gap: 6px; color: #1a1a1a; text-decoration: none; font-weight: 700; font-size: 12px; padding: 5px 12px; border: 1px solid #e2e0db; border-radius: 20px; transition: background .15s, border-color .15s; }
+.footer-x-link:hover { background: #f8f7f4; border-color: #1a1a1a; }
+.x-logo { flex-shrink: 0; }
+</style>
+</head>
+
+<body class="ki-insights">
+
+<!-- ============================================================
+     固定ヘッダー
+     ★ 既存サイトの共通ヘッダーHTMLがあるなら、この <header> を
+       それに差し替え、その中に下の .ki-nav のアンカーだけ足してください。
+     ============================================================ -->
+<header class="ki-header">
+  <div class="ki-header__inner">
+    <div class="ki-brandrow">
+      <a class="ki-brand" href="insights.html">KIRIN <span>Insights</span></a>
+      <span class="ki-brand__sep" aria-hidden="true"></span>
+      <span class="ki-brand__tag">不動産と住宅ローンの『いま』を読む</span>
+    </div>
+    <nav class="ki-nav">
+      <a href="#news">ニュース</a>
+      <a href="#press">プレスリリース</a>
+      <a href="#pics">Kirin Pics</a>
+      <a href="#market">マーケット</a>
+      <a href="#reports">分析・レポート</a>
+      <a href="#columns">コラム</a>
+      <span class="ki-nav__sep">|</span>
+      <a href="index.html" class="ki-nav__ext">住宅ローン返済シミュレーター ↗</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ki-wrap">
+  <div class="ki-grid">
+
+    <!-- ===== 左：メイン（全カテゴリを縦に通読） ===== -->
+    <main class="ki-main">
+
+      <!-- ニュース（data/news.json から自動描画） -->
+      <section id="news" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">ニュース</h2>
+          <span class="ki-section__en">News</span>
+          <a class="ki-head-more" href="insights-archive.html" target="_blank" rel="noopener">カレンダーで見る ↗</a>
+        </div>
+        <p class="ki-updated" id="newsUpdated"></p>
+        <ul id="newsList" class="ki-news"></ul>
+        <div id="newsState" class="ki-state">読み込み中…</div>
+        <a id="newsMore" class="ki-more" href="insights-archive.html" target="_blank" rel="noopener">過去・その他のニュースをカレンダーで見る ↗</a>
+      </section>
+
+      <!-- プレスリリース（data/news.json の kind=press を抽出） -->
+      <section id="press" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">プレスリリース</h2>
+          <span class="ki-section__en">Press</span>
+          <a class="ki-head-more" href="press-archive.html" target="_blank" rel="noopener">カレンダーで見る ↗</a>
+        </div>
+        <p class="ki-updated" id="pressUpdated"></p>
+        <div id="pressFilter" class="ki-devfilter"></div>
+        <ul id="pressList" class="ki-news"></ul>
+        <div id="pressState" class="ki-state">読み込み中…</div>
+        <a id="pressMore" class="ki-more" href="press-archive.html" target="_blank" rel="noopener">過去・その他のプレスリリースをカレンダーで見る ↗</a>
+      </section>
+
+      <!-- Kirin Pics（手動：下の picsData を編集） -->
+      <section id="pics" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">Kirin Pics</h2>
+          <span class="ki-section__en">Pics</span>
+        </div>
+        <div id="picsGrid" class="ki-pics"></div>
+      </section>
+
+      <!-- マーケット：金利・為替・株価の月次推移グラフ -->
+      <section id="market" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">マーケット</h2>
+          <span class="ki-section__en">Market</span>
+        </div>
+        <p class="ki-data-period" id="dataPeriod"></p>
+        <div id="reportsBody">
+          <h3 class="ki-report__title">金利の推移（変動・固定・政策金利・長期金利）<span class="ki-report__period" id="ratesPeriod"></span></h3>
+          <div class="ki-chartwrap"><canvas id="chartRates"></canvas></div>
+          <p class="ki-report__desc">
+            <b>変動金利・固定3年・固定10年</b>は各行の<b>店頭表示金利（基準金利）</b>です。実際に借りる際の適用金利は、ここから<b>引き下げ幅（優遇幅）</b>を差し引いた水準になります（例：変動は店頭2.475%でも、優遇後はおおむね0.3〜0.7%程度）。<b>政策金利</b>は日銀の政策金利、<b>10年国債</b>は長期金利の代表指標です。
+          </p>
+          <p class="ki-report__src">出所：住宅ローン金利（変動・固定3年・固定10年）＝住宅金融支援機構「民間金融機関の住宅ローン金利推移」／政策金利＝日本銀行／10年国債（長期金利）＝財務省「国債金利情報」（月末値）。いずれも月次。</p>
+          <h3 class="ki-report__title">ドル円・日経平均の推移<span class="ki-report__period" id="macroPeriod"></span></h3>
+          <div class="ki-chartwrap"><canvas id="chartMacro"></canvas></div>
+          <p class="ki-report__note">月次データ。凡例をクリックすると各系列の表示/非表示を切り替えられます。</p>
+          <p class="ki-report__src">出所：ドル円＝FRED（DEXJPUS・月末値）／日本銀行「外国為替相場状況」、日経平均＝日本経済新聞社「日経平均プロファイル」（月末終値）。</p>
+
+          <h3 class="ki-report__title">中古マンション70㎡価格：3大都市圏<span class="ki-report__period" id="city3Period"></span></h3>
+          <div class="ki-chartwrap"><canvas id="chartCity3"></canvas></div>
+          <h3 class="ki-report__title">中古マンション70㎡価格：東京<span class="ki-report__period" id="tokyoPeriod"></span></h3>
+          <div class="ki-chartwrap"><canvas id="chartTokyo"></canvas></div>
+          <p class="ki-report__note">中古マンション70㎡・月次。価格データは2014年12月以降。</p>
+          <p class="ki-report__src">出所：東京カンテイ（中古マンション70㎡・月次）をもとにKIRIN作成。</p>
+        </div>
+        <div id="reportsState" class="ki-state" hidden></div>
+      </section>
+
+      <!-- 分析・レポート -->
+      <section id="reports" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">分析・レポート</h2>
+          <span class="ki-section__en">Reports</span>
+        </div>
+        <p class="ki-state">準備中</p>
+      </section>
+
+      <!-- コラム（Xの引用パネル＋リンクカード） -->
+      <section id="columns" class="ki-section">
+        <div class="ki-section__head">
+          <h2 class="ki-section__title">コラム</h2>
+          <span class="ki-section__en">Columns</span>
+        </div>
+        <div id="columnsX" class="ki-pics"></div>
+        <div id="columnsCards" class="ki-cards"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-disclaimer">
+    本ページの金利・為替・株価・不動産価格などの情報は、各種公表データをもとにKIRINが作成したもので、正確性・完全性を保証するものではありません。特定の金融商品の売買や投資を推奨するものではなく、ご判断はご自身の責任で行ってください。
+  </div>
+  <div class="footer-credit">
+    <img src="icon.jpg" alt="KIRIN" class="footer-icon">
+    <span>© 2026 KIRIN</span>
+    <a class="footer-x-link" href="https://x.com/kirinsan4567" target="_blank" rel="noopener noreferrer">
+      <svg class="x-logo" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>@kirinsan4567</span>
+    </a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   1) X投稿（自前カード）— ここを手で編集して投稿を追加します
+   各フィールドの意味:
+     name  : 表示名（通常 "KIRIN"）
+     date  : 表示する日付（自由文字列。例 "2026.06.29"）
+     text  : 投稿本文（改行はそのまま反映されます）
+     url   : 実際のポストのURL（"Xで見る" のリンク先）
+     image : 画像URL（任意。無ければ省略可）
+   ★投稿を増やすときは、このリストにオブジェクトを1つ足すだけ。
+   ============================================================ */
+/* 1) 右サイドバー：自分のX投稿（@kirinsan4567）。埋め込みで内容表示・クリックでXへ。 */
+const myXPosts = [
+  "https://x.com/kirinsan4567/status/1864640000455069871",
+  "https://x.com/kirinsan4567/status/1883059198927450123"
+];
+
+/* 2) Kirin Pics：注目のXポスト（埋め込み）＋記事（リンクカード） */
+const picTweets = [
+  "https://x.com/bloombergjapan/status/2071753442423390654",
+  "https://x.com/nikkei/status/2069965575514718660",
+  "https://x.com/nikkei/status/2066614249950986639",
+  "https://x.com/bloombergjapan/status/2069956572567003620",
+  "https://x.com/nikkei/status/2069587081576251567"
+];
+const picArticles = [
+  { source: "日本経済新聞", url: "https://www.nikkei.com/article/DGXZQOUB090T70Z00C24A8000000/" }
+];
+
+/* 3) コラム（手動） */
+/* 「都心タワマン」記事カードは削除済み（columnFeature は無効化） */
+const columnFeature = null;
+const columnsData = [];
+
+/* ---------- 共通ヘルパー ---------- */
+const $ = sel => document.querySelector(sel);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function fmtDate(iso){ const d=new Date(iso); if(isNaN(d)) return ""; return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}`; }
+
+/* ---------- X投稿の描画（コラムにパネル埋め込み＋コラム記事カード） ---------- */
+function renderX(){
+  const el = $('#columnsX');
+  if (!el) return;
+  const feat = columnFeature ? `
+    <a class="ki-embed ki-xart" href="${esc(columnFeature.url)}" target="_blank" rel="noopener">
+      <div class="ki-xart__img"><img src="${esc(columnFeature.image)}" alt="" loading="lazy"></div>
+      <div class="ki-xart__body">
+        <span class="ki-xart__badge"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> コラム</span>
+        <h3 class="ki-xart__title">${esc(columnFeature.title)}</h3>
+        <span class="ki-xart__go">Xで読む ↗</span>
+      </div>
+    </a>` : '';
+  const posts = myXPosts.map(u =>
+    `<div class="ki-embed"><blockquote class="twitter-tweet" data-dnt="true"><a href="${esc(u)}"></a></blockquote></div>`
+  ).join("");
+  el.innerHTML = feat + posts;
+}
+
+/* ---------- Pics（Xポスト埋め込み＋記事カード） ---------- */
+function renderPics(){
+  const el = $('#picsGrid');
+  const tweets = picTweets.map(u =>
+    `<div class="ki-embed"><blockquote class="twitter-tweet" data-dnt="true"><a href="${esc(u)}"></a></blockquote></div>`
+  ).join("");
+  const arts = picArticles.map(a =>
+    `<a class="ki-cardlink" href="${esc(a.url)}" target="_blank" rel="noopener">
+       <h3>${esc(a.source)}の記事</h3>
+       <span class="ki-cardlink__go">記事を見る →</span>
+     </a>`
+  ).join("");
+  el.innerHTML = (tweets + arts) || `<p class="ki-state">準備中</p>`;
+}
+
+/* X埋め込みウィジェットの読み込み（widgets.js が用意でき次第レンダリング） */
+function loadTweets(){
+  if (window.twttr && window.twttr.widgets) { window.twttr.widgets.load(); }
+  else { setTimeout(loadTweets, 300); }
+}
+
+/* ---------- 分析レポート：金利/為替/株価の月次グラフ ---------- */
+function whenChartReady(cb){
+  if (typeof Chart !== 'undefined') cb();
+  else setTimeout(() => whenChartReady(cb), 100);
+}
+function parseCSV(text){
+  const rows = []; let row = [], field = '', q = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (q){
+      if (c === '"'){ if (text[i+1] === '"'){ field += '"'; i++; } else q = false; }
+      else field += c;
+    } else {
+      if (c === '"') q = true;
+      else if (c === ','){ row.push(field); field = ''; }
+      else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+      else if (c === '\r'){ /* skip */ }
+      else field += c;
+    }
+  }
+  if (field !== '' || row.length){ row.push(field); rows.push(row); }
+  return rows;
+}
+function toNum(s){ if (s == null) return null; s = String(s).replace(/[",\s]/g, ''); return s === '' ? null : Number(s); }
+
+let rateChart, macroChart, city3Chart, tokyoChart;
+async function renderReports(){
+  const state = $('#reportsState');
+  try {
+    const res = await fetch('data/market.csv', { cache: 'no-store' });
+    if (!res.ok) throw new Error('not found');
+    const rows = parseCSV(await res.text());
+    rows.shift(); // ヘッダー
+    const L=[], vr=[], f3=[], f10=[], pol=[], jgb=[], usd=[], nk=[];
+    const tk23=[], tk6=[], jyonan=[], jyohoku=[], osaka=[], nagoya=[];
+    for (const r of rows){
+      const ym = (r[0] || '').trim();
+      if (!/^\d{4}-\d{2}/.test(ym)) continue;
+      L.push(ym);
+      vr.push(toNum(r[1])); f3.push(toNum(r[2])); f10.push(toNum(r[3]));
+      pol.push(toNum(r[4])); jgb.push(toNum(r[5])); usd.push(toNum(r[6])); nk.push(toNum(r[7]));
+      tk23.push(toNum(r[8])); tk6.push(toNum(r[9])); jyonan.push(toNum(r[10]));
+      jyohoku.push(toNum(r[11])); osaka.push(toNum(r[12])); nagoya.push(toNum(r[13]));
+    }
+    const fmt = s => s.replace('-', '/');
+    const period = L.length ? `（${fmt(L[0])}〜${fmt(L[L.length-1])}）` : '';
+    const rp = $('#ratesPeriod'), mp = $('#macroPeriod');
+    if (rp) rp.textContent = period;
+    if (mp) mp.textContent = period;
+    const dp = $('#dataPeriod');
+    if (dp && L.length) dp.textContent = `データ期間：${fmt(L[0])}〜${fmt(L[L.length-1])}（月次）`;
+    // 価格データの実期間（2014-12〜）
+    const pIdx = L.map((_, i) => i).filter(i => tk23[i] != null);
+    const pPeriod = pIdx.length ? `（${fmt(L[pIdx[0]])}〜${fmt(L[pIdx[pIdx.length-1]])}）` : '';
+    const cp = $('#city3Period'), tp = $('#tokyoPeriod');
+    if (cp) cp.textContent = pPeriod;
+    if (tp) tp.textContent = pPeriod;
+    const base = {
+      responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      elements:{ point:{ radius:0, hitRadius:6 } },
+      plugins:{ legend:{ labels:{ boxWidth:12, font:{ size:11 } } } },
+      scales:{ x:{ ticks:{ maxTicksLimit:12, autoSkip:true, font:{ size:10 } }, grid:{ display:false } } }
+    };
+    const ds = (label, data, color, axis) => ({ label, data, borderColor:color, backgroundColor:color, borderWidth:1.6, tension:0.15, spanGaps:false, yAxisID: axis || 'y' });
+
+    // 4グラフでプロット領域の左右端を揃えるため、軸幅を固定する
+    const LW = 66, RW = 74;
+    const fitL = s => { s.width = LW; };
+    const fitR = s => { s.width = RW; };
+    const spacerR = () => ({ position:'right', display:true, grid:{ drawOnChartArea:false }, ticks:{ display:false }, afterFit: fitR });
+    const spacerL = () => ({ position:'left', display:true, grid:{ drawOnChartArea:false }, ticks:{ display:false }, afterFit: fitL });
+
+    if (rateChart) rateChart.destroy();
+    rateChart = new Chart($('#chartRates'), {
+      type:'line',
+      data:{ labels:L, datasets:[
+        ds('変動金利', vr, '#d64545'),
+        ds('固定3年', f3, '#2f8f4e'),
+        ds('固定10年', f10, '#2f6fb0'),
+        ds('政策金利', pol, '#e0932f'),
+        ds('10年国債', jgb, '#7a5aa0')
+      ]},
+      options:{ ...base, scales:{ ...base.scales,
+        y:{ ticks:{ callback:v=>v+'%', font:{ size:10 } }, title:{ display:true, text:'金利(%)' }, afterFit: fitL },
+        y1: spacerR() } }
+    });
+
+    if (macroChart) macroChart.destroy();
+    macroChart = new Chart($('#chartMacro'), {
+      type:'line',
+      data:{ labels:L, datasets:[
+        ds('ドル円', usd, '#c98a2b', 'y'),
+        ds('日経平均', nk, '#3a6ea5', 'y1')
+      ]},
+      options:{ ...base, scales:{ ...base.scales,
+        y:{ position:'left', ticks:{ font:{ size:10 } }, title:{ display:true, text:'ドル円' }, afterFit: fitL },
+        y1:{ position:'right', ticks:{ font:{ size:10 } }, grid:{ drawOnChartArea:false }, title:{ display:true, text:'日経平均' }, afterFit: fitR } } }
+    });
+    if (state) state.hidden = true;
+
+    const yenY = () => ({ position:'right', ticks:{ callback:v=>Number(v).toLocaleString(), font:{ size:10 } }, title:{ display:true, text:'70㎡価格（万円）' }, afterFit: fitR });
+
+    if (city3Chart) city3Chart.destroy();
+    city3Chart = new Chart($('#chartCity3'), {
+      type:'line',
+      data:{ labels:L, datasets:[
+        ds('東京23区', tk23, '#d64545'),
+        ds('大阪6区', osaka, '#2f8f4e'),
+        ds('名古屋3区', nagoya, '#2f6fb0')
+      ]},
+      options:{ ...base, scales:{ ...base.scales, y: yenY(), yL: spacerL() } }
+    });
+
+    if (tokyoChart) tokyoChart.destroy();
+    tokyoChart = new Chart($('#chartTokyo'), {
+      type:'line',
+      data:{ labels:L, datasets:[
+        ds('東京23区', tk23, '#d64545'),
+        ds('都心6区', tk6, '#e0932f'),
+        ds('城南・城西6区', jyonan, '#2f8f4e'),
+        ds('城北・城東11区', jyohoku, '#2f6fb0')
+      ]},
+      options:{ ...base, scales:{ ...base.scales, y: yenY(), yL: spacerL() } }
+    });
+  } catch (e) {
+    if (state){ state.hidden = false; state.textContent = 'グラフデータ(data/market.csv)を読み込めませんでした。'; }
+  }
+}
+
+function renderCards(target, data){
+  $(target).innerHTML = data.map(c => {
+    const ext = /^https?:/.test(c.href || "");
+    const attr = ext ? ' target="_blank" rel="noopener"' : '';
+    const go = ext ? '開く ↗' : '詳しく見る →';
+    return `<a class="ki-cardlink" href="${esc(c.href)}"${attr}>
+      <h3>${esc(c.title)}</h3>
+      <p>${esc(c.desc||"")}</p>
+      <span class="ki-cardlink__go">${go}</span>
+    </a>`;
+  }).join("");
+}
+
+/* ---------- ニュースの描画（data/news.json を fetch） ---------- */
+const NEWS_RECENT_MAX = 20; // デフォルト表示件数（残りはカレンダーページへ）
+
+function newsItemHTML(n, i){
+  const tags = (n.tags||[]).map(t => `<span class="ki-tag" data-t="${esc(t)}">${esc(t)}</span>`).join("");
+  const hasLink = n.url && n.url !== "#";
+  const title = hasLink
+    ? `<a class="ki-news__title" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>`
+    : `<span class="ki-news__title">${esc(n.title)}</span>`;
+  const summary = n.summary ? `<div class="ki-news__summary">${esc(n.summary)}</div>` : "";
+  return `<li class="ki-news__item">
+      <span class="ki-news__no">${(i ?? 0) + 1}</span>
+      <div class="ki-news__body">
+        ${title}
+        ${summary}
+        <div class="ki-news__meta">
+          <span class="ki-news__date">${fmtDate(n.date)}</span>
+          ${n.source ? `<span class="ki-news__source">${esc(n.source)}</span>` : ""}
+          <span class="ki-tags">${tags}</span>
+        </div>
+      </div>
+    </li>`;
+}
+
+function fillList(items, listSel, stateSel, moreSel, emptyMsg){
+  const list = $(listSel), state = $(stateSel), more = $(moreSel);
+  more.hidden = true;
+  if(!items.length){ state.textContent = emptyMsg; state.hidden = false; return; }
+  list.innerHTML = items.slice(0, NEWS_RECENT_MAX).map((n,i) => newsItemHTML(n,i)).join("");
+  state.hidden = true;
+  more.hidden = items.length <= NEWS_RECENT_MAX; // 残りがある時だけカレンダー導線を表示
+}
+
+const DEVS = ["三井", "三菱", "野村", "住友", "東建", "日鉄", "東急", "森"];
+let allPress = [];
+
+function renderPressFiltered(dev){
+  const items = (dev === "すべて") ? allPress : allPress.filter(n => (n.tags || []).includes(dev));
+  fillList(items, '#pressList', '#pressState', '#pressMore', `${dev === "すべて" ? "" : dev + "の"}プレスリリースがまだありません。`);
+}
+
+function buildPressFilter(){
+  const wrap = $('#pressFilter');
+  const chips = ["すべて", ...DEVS];
+  wrap.innerHTML = chips.map((d,i) => `<button class="ki-devchip${i===0?' active':''}" data-dev="${d}">${d}</button>`).join("");
+  wrap.querySelectorAll('.ki-devchip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      wrap.querySelectorAll('.ki-devchip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPressFiltered(btn.dataset.dev);
+    });
+  });
+}
+
+async function renderNews(){
+  try {
+    const res = await fetch('data/news.json', { cache: 'no-store' });
+    if(!res.ok) throw new Error('not found');
+    let items = await res.json();
+    if(!Array.isArray(items)) items = [];
+    items.sort((a,b)=> new Date(b.date) - new Date(a.date));
+
+    // ニュース欄＝全件（プレス含む）
+    fillList(items, '#newsList', '#newsState', '#newsMore', '表示できるニュースがまだありません。');
+
+    // プレスリリース欄＝kind:press のみ＋デベロッパー絞り込み
+    allPress = items.filter(n => n.kind === 'press');
+    buildPressFilter();
+    renderPressFiltered("すべて");
+  } catch (e) {
+    $('#newsState').textContent = 'ニュースを読み込めませんでした。少し時間をおいて再読み込みしてください。';
+    $('#pressState').textContent = 'プレスリリースを読み込めませんでした。';
+  }
+}
+
+/* ---------- 更新時刻の表示（Action由来。HTML編集ではカウントしない） ---------- */
+async function showUpdated(){
+  const n = $('#newsUpdated'), p = $('#pressUpdated');
+  let txt = '3時間ごとに自動更新';
+  try {
+    const res = await fetch('data/news_updated.json', { cache: 'no-store' });
+    if (res.ok){
+      const j = await res.json();
+      const d = new Date(j.updatedAt);
+      if (!isNaN(d)){
+        const s = d.toLocaleString('ja-JP', { timeZone:'Asia/Tokyo', year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+        txt += `／最終更新 ${s}`;
+      }
+    }
+  } catch (e) { /* 未生成時はデフォルト文のみ */ }
+  if (n) n.textContent = txt;
+  if (p) p.textContent = txt;
+}
+
+/* ---------- 起動 ---------- */
+renderX();
+renderPics();
+whenChartReady(renderReports);
+renderCards('#columnsCards', columnsData);
+loadTweets();
+showUpdated();
+
+/* 固定ヘッダーの実高さをCSS変数へ（アンカー飛び先の隠れを防ぐ） */
+function setHeaderOffset(){
+  const h = document.querySelector('.ki-header');
+  if (h){
+    const px = h.offsetHeight;
+    document.body.style.setProperty('--ki-header-h', px + 'px');
+    document.body.style.paddingTop = px + 'px';
+  }
+}
+setHeaderOffset();
+window.addEventListener('resize', setHeaderOffset);
+window.addEventListener('load', setHeaderOffset);
+renderNews();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
