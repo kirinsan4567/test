@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>過去のプレスリリース | KIRIN Insights</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+.ki-arch {
+  --ki-accent: #1f5673; --ki-ink:#1c1c1e; --ki-sub:#6b7280; --ki-line:#e5e7eb;
+  --ki-bg:#f7f8fa; --ki-card:#fff; --ki-radius:14px;
+  font-family:"Zen Kaku Gothic New", system-ui, sans-serif; color:var(--ki-ink);
+  background:var(--ki-bg); line-height:1.6;
+}
+.ki-arch *, .ki-arch *::before, .ki-arch *::after { box-sizing:border-box; }
+.ki-arch__top { max-width:1000px; margin:0 auto; padding:16px 20px; border-bottom:1px solid var(--ki-line); }
+.ki-arch__back { font-size:.85rem; color:var(--ki-sub); text-decoration:none; }
+.ki-arch__back:hover { color:var(--ki-accent); }
+.ki-arch__title { font-size:1.25rem; font-weight:700; margin:6px 0 0; }
+.ki-arch__title span { color:var(--ki-accent); }
+
+.ki-arch__wrap { max-width:1000px; margin:0 auto; padding:24px 20px 80px;
+  display:grid; grid-template-columns:340px minmax(0,1fr); gap:32px; align-items:start; }
+
+/* カレンダー */
+.ki-cal { background:var(--ki-card); border:1px solid var(--ki-line); border-radius:var(--ki-radius); padding:14px; position:sticky; top:16px; }
+.ki-cal__head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.ki-cal__label { font-weight:700; font-size:1.05rem; }
+.ki-cal__nav { border:1px solid var(--ki-line); background:#fff; border-radius:8px; width:32px; height:32px; cursor:pointer; font-size:1rem; color:var(--ki-ink); }
+.ki-cal__nav:hover { border-color:var(--ki-accent); color:var(--ki-accent); }
+.ki-cal__grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+.ki-cal__dow { text-align:center; font-size:.72rem; color:var(--ki-sub); padding:4px 0; font-weight:700; }
+.ki-cal__dow.sun { color:#b4474e; } .ki-cal__dow.sat { color:#3a6ea5; }
+.ki-cal__cell { aspect-ratio:1; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:.85rem; color:var(--ki-sub); }
+.ki-cal__cell.empty { visibility:hidden; }
+.ki-cal__cell.has { background:#eef3f6; color:var(--ki-ink); cursor:pointer; font-weight:700; position:relative; }
+.ki-cal__cell.has:hover { background:#e2ecf1; }
+.ki-cal__cell.sel { background:var(--ki-accent); color:#fff; }
+.ki-cal__count { font-size:.6rem; font-weight:700; line-height:1; margin-top:2px; opacity:.85; }
+
+/* 記事パネル */
+.ki-panel__date { font-size:1.1rem; font-weight:700; margin:0 0 4px; }
+.ki-panel__sub { font-size:.82rem; color:var(--ki-sub); margin:0 0 14px; }
+.ki-news { list-style:none; margin:0; padding:0; }
+.ki-news__item { padding:10px 2px; border-bottom:1px solid var(--ki-line); display:flex; flex-direction:column; gap:3px; }
+.ki-news__title { color:var(--ki-ink); text-decoration:none; font-weight:500; font-size:.96rem; line-height:1.4; }
+a.ki-news__title:hover { color:var(--ki-accent); text-decoration:underline; }
+.ki-news__summary { font-size:.82rem; color:var(--ki-sub); line-height:1.5; }
+.ki-news__meta { display:flex; align-items:center; flex-wrap:wrap; gap:6px; font-size:.76rem; color:var(--ki-sub); }
+.ki-news__source::before { content:"・"; margin-right:6px; }
+.ki-tags { display:inline-flex; gap:6px; flex-wrap:wrap; margin-left:auto; }
+.ki-tag { font-size:.72rem; font-weight:700; padding:2px 9px; border-radius:999px; line-height:1.5; white-space:nowrap; }
+.ki-tag[data-t="金利・日銀"]   { background:#e7f0f6; color:#1f5673; }
+.ki-tag[data-t="住宅ローン"]   { background:#eaf3ec; color:#2f6b43; }
+.ki-tag[data-t="不動産・市場"] { background:#f4eee6; color:#8a5a2b; }
+.ki-tag[data-t="開発・デベロッパー"] { background:#efe9f4; color:#5a3f7a; }
+.ki-tag[data-t="その他"]       { background:#eef0f2; color:#6b7280; }
+.ki-tag[data-t="三井"], .ki-tag[data-t="三菱"], .ki-tag[data-t="野村"], .ki-tag[data-t="住友"], .ki-tag[data-t="東建"], .ki-tag[data-t="日鉄"], .ki-tag[data-t="東急"] { background:#e8e3da; color:#5b4a35; }
+.ki-state { color:var(--ki-sub); padding:16px 2px; }
+.ki-devfilter { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 16px; }
+.ki-devchip { font-size:.8rem; font-weight:700; padding:4px 12px; border-radius:999px; border:1px solid var(--ki-line); background:#fff; color:var(--ki-sub); cursor:pointer; font-family:inherit; }
+.ki-devchip:hover { border-color:var(--ki-accent); color:var(--ki-accent); }
+.ki-devchip.active { background:var(--ki-accent); color:#fff; border-color:var(--ki-accent); }
+
+@media (max-width:760px){
+  .ki-arch__wrap { grid-template-columns:1fr; }
+  .ki-cal { position:static; }
+}
+</style>
+</head>
+
+<body class="ki-arch">
+<div class="ki-arch__top">
+  <a class="ki-arch__back" href="insights.html">← KIRIN Insights に戻る</a>
+  <h1 class="ki-arch__title">過去のプレスリリース <span>カレンダー</span></h1>
+  <div id="devFilter" class="ki-devfilter"></div>
+</div>
+
+<div class="ki-arch__wrap">
+  <div class="ki-cal">
+    <div class="ki-cal__head">
+      <button id="prev" class="ki-cal__nav" aria-label="前の月">‹</button>
+      <span id="calLabel" class="ki-cal__label"></span>
+      <button id="next" class="ki-cal__nav" aria-label="次の月">›</button>
+    </div>
+    <div id="calGrid" class="ki-cal__grid"></div>
+  </div>
+
+  <div class="ki-panel">
+    <h2 id="panelDate" class="ki-panel__date">日付を選んでください</h2>
+    <p id="panelSub" class="ki-panel__sub"></p>
+    <ul id="panelList" class="ki-news"></ul>
+    <div id="archState" class="ki-state">読み込み中…</div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const DOW = ["日","月","火","水","木","金","土"];
+
+let byDate = {};        // 'YYYY-MM-DD' -> [items]
+let viewY, viewM;       // 表示中の年・月（0始まり）
+let selectedKey = null;
+
+function newsItemHTML(n){
+  const tags = (n.tags||[]).map(t => `<span class="ki-tag" data-t="${esc(t)}">${esc(t)}</span>`).join("");
+  const hasLink = n.url && n.url !== "#";
+  const title = hasLink
+    ? `<a class="ki-news__title" href="${esc(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a>`
+    : `<span class="ki-news__title">${esc(n.title)}</span>`;
+  const summary = n.summary ? `<div class="ki-news__summary">${esc(n.summary)}</div>` : "";
+  return `<li class="ki-news__item">
+      ${title}${summary}
+      <div class="ki-news__meta">
+        ${n.source ? `<span class="ki-news__source">${esc(n.source)}</span>` : ""}
+        <span class="ki-tags">${tags}</span>
+      </div>
+    </li>`;
+}
+
+function renderCalendar(){
+  $('#calLabel').textContent = `${viewY}年 ${viewM+1}月`;
+  const first = new Date(viewY, viewM, 1);
+  const startDow = first.getDay();
+  const days = new Date(viewY, viewM+1, 0).getDate();
+
+  let cells = "";
+  DOW.forEach((d,i) => {
+    cells += `<div class="ki-cal__dow ${i===0?'sun':i===6?'sat':''}">${d}</div>`;
+  });
+  for(let i=0;i<startDow;i++) cells += `<div class="ki-cal__cell empty"></div>`;
+  for(let day=1; day<=days; day++){
+    const key = `${viewY}-${pad(viewM+1)}-${pad(day)}`;
+    const cnt = byDate[key] ? byDate[key].length : 0;
+    const cls = cnt ? `has${key===selectedKey?' sel':''}` : '';
+    cells += `<div class="ki-cal__cell ${cls}" ${cnt?`data-key="${key}"`:''}>
+        <span>${day}</span>${cnt?`<span class="ki-cal__count">${cnt}</span>`:''}
+      </div>`;
+  }
+  $('#calGrid').innerHTML = cells;
+  $('#calGrid').querySelectorAll('[data-key]').forEach(el => {
+    el.addEventListener('click', () => selectDay(el.dataset.key));
+  });
+}
+
+function selectDay(key){
+  selectedKey = key;
+  const items = (byDate[key]||[]).slice().sort((a,b)=> new Date(b.date)-new Date(a.date));
+  const d = new Date(key + "T00:00:00");
+  $('#panelDate').textContent = `${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+  $('#panelSub').textContent = `${items.length}件の記事`;
+  $('#panelList').innerHTML = items.map(newsItemHTML).join("");
+  renderCalendar();
+}
+
+const DEVS = ["三井", "三菱", "野村", "住友", "東建", "日鉄", "東急", "森"];
+let allPress = [];
+let curDev = "すべて";
+
+function applyDev(){
+  const items = (curDev === "すべて") ? allPress : allPress.filter(n => (n.tags || []).includes(curDev));
+  byDate = {};
+  items.forEach(n => { const key = ymd(new Date(n.date)); (byDate[key] = byDate[key] || []).push(n); });
+  if(!items.length){
+    $('#calGrid').innerHTML = "";
+    $('#panelDate').textContent = `${curDev === "すべて" ? "" : curDev + "の"}プレスリリースはありません`;
+    $('#panelSub').textContent = "";
+    $('#panelList').innerHTML = "";
+    $('#calLabel').textContent = "";
+    return;
+  }
+  const latest = new Date(items.reduce((m,n)=> new Date(n.date)>new Date(m)?n.date:m, items[0].date));
+  viewY = latest.getFullYear(); viewM = latest.getMonth();
+  selectedKey = null;
+  renderCalendar();
+  selectDay(ymd(latest));
+}
+
+function buildDevFilter(){
+  const wrap = $('#devFilter');
+  const chips = ["すべて", ...DEVS];
+  wrap.innerHTML = chips.map((d,i) => `<button class="ki-devchip${i===0?' active':''}" data-dev="${d}">${d}</button>`).join("");
+  wrap.querySelectorAll('.ki-devchip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      wrap.querySelectorAll('.ki-devchip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      curDev = btn.dataset.dev;
+      applyDev();
+    });
+  });
+}
+
+async function init(){
+  try {
+    const res = await fetch('data/news.json', { cache:'no-store' });
+    if(!res.ok) throw new Error('not found');
+    const all = await res.json();
+    allPress = Array.isArray(all) ? all.filter(n => n.kind === "press") : [];
+    if(!allPress.length){
+      $('#archState').textContent = '過去のプレスリリースがまだありません。'; return;
+    }
+    $('#archState').hidden = true;
+    buildDevFilter();
+    applyDev();
+
+    $('#prev').addEventListener('click', ()=>{ viewM--; if(viewM<0){viewM=11;viewY--;} renderCalendar(); });
+    $('#next').addEventListener('click', ()=>{ viewM++; if(viewM>11){viewM=0;viewY++;} renderCalendar(); });
+  } catch(e) {
+    $('#archState').textContent = 'ニュースを読み込めませんでした。';
+  }
+}
+init();
+</script>
+</body>
+</html>
