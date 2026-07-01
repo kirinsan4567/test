@@ -59,6 +59,9 @@ const FEEDS = [
   { name: "三井不動産",     type: "google", kind: "press", dev: "三井", url: encodeURI('https://news.google.com/rss/search?q="三井不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "三菱地所",       type: "google", kind: "press", dev: "三菱", url: encodeURI('https://news.google.com/rss/search?q="三菱地所" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "野村不動産",     type: "google", kind: "press", dev: "野村", url: encodeURI('https://news.google.com/rss/search?q="野村不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  // PR TIMES：野村不動産のリリースを追加収集。直RSSを試行し、確実版としてGoogleスコープも併用（重複は後段のdedupで自動除去）。
+  { name: "PR TIMES（野村不動産）", kind: "press", dev: "野村", url: encodeURI("https://prtimes.jp/topics/keywords/野村不動産") },
+  { name: "PR TIMES（野村不動産）", type: "google", kind: "press", dev: "野村", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "野村不動産"&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "東急不動産",     type: "google", kind: "press", dev: "東急", url: encodeURI('https://news.google.com/rss/search?q="東急不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "東京建物",       type: "google", kind: "press", dev: "東建", url: encodeURI('https://news.google.com/rss/search?q="東京建物" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "森ビル",         type: "google", kind: "press", dev: "森",   url: encodeURI('https://news.google.com/rss/search?q="森ビル" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
