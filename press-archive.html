@@ -59,7 +59,7 @@ a.ki-news__title:hover { color:var(--ki-accent); text-decoration:underline; }
 .ki-tag[data-t="不動産・市場"] { background:#f4eee6; color:#8a5a2b; }
 .ki-tag[data-t="開発・デベロッパー"] { background:#efe9f4; color:#5a3f7a; }
 .ki-tag[data-t="その他"]       { background:#eef0f2; color:#6b7280; }
-.ki-tag[data-t="三井"], .ki-tag[data-t="三菱"], .ki-tag[data-t="野村"], .ki-tag[data-t="住友"], .ki-tag[data-t="東建"], .ki-tag[data-t="日鉄"], .ki-tag[data-t="東急"] { background:#e8e3da; color:#5b4a35; }
+.ki-tag[data-t="三井"], .ki-tag[data-t="三菱"], .ki-tag[data-t="野村"], .ki-tag[data-t="住友"], .ki-tag[data-t="東建"], .ki-tag[data-t="日鉄"], .ki-tag[data-t="東急"], .ki-tag[data-t="大和"], .ki-tag[data-t="積水"], .ki-tag[data-t="近鉄"], .ki-tag[data-t="伊藤忠"], .ki-tag[data-t="モリモト"], .ki-tag[data-t="住友商事"], .ki-tag[data-t="旭化成"], .ki-tag[data-t="明和地所"], .ki-tag[data-t="OH"], .ki-tag[data-t="東急リ"] { background:#e8e3da; color:#5b4a35; }
 .ki-state { color:var(--ki-sub); padding:16px 2px; }
 .ki-devfilter { display:flex; gap:6px; flex-wrap:wrap; margin:0 0 16px; }
 .ki-devchip { font-size:.8rem; font-weight:700; padding:4px 12px; border-radius:999px; border:1px solid var(--ki-line); background:#fff; color:var(--ki-sub); cursor:pointer; font-family:inherit; }
@@ -160,7 +160,7 @@ function selectDay(key){
   renderCalendar();
 }
 
-const DEVS = ["三井", "三菱", "野村", "住友", "東建", "日鉄", "東急", "森"];
+const DEVS = ["三井", "三菱", "野村", "住友", "東建", "日鉄", "東急", "森", "大和", "積水", "近鉄", "伊藤忠", "モリモト", "住友商事", "旭化成", "明和地所", "OH", "東急リ"];
 let allPress = [];
 let curDev = "すべて";
 
