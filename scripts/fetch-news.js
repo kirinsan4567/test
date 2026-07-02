@@ -20,7 +20,7 @@ import Parser from "rss-parser";
 const parser = new Parser({ timeout: 15000 });
 
 const OUT_PATH = "data/news.json";
-const MAX_ITEMS = 400; // ストック上限（古いものから捨てる）
+const MAX_ITEMS = 1200; // ストック上限（古いものから捨てる）
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
@@ -56,17 +56,44 @@ const FEEDS = [
   // ── デベロッパー各社（社名で広く収集し、発表語フィルタで厳選）──────
   //   ※公式サイト限定(site:)はGoogleが公式プレスを索引せず取りこぼすため、社名検索に戻す。
   //   dev は絞り込みボタン用の短縮名。採用・人事・株価はマイナス検索で除外。
+  //   PR TIMES（https://prtimes.jp/topics/keywords/正式社名）を各社に横展開。
+  //   直RSSが構造的に壊れて読めない回があっても（XMLエンティティ不正等）SKIPされるだけなので、
+  //   確実版としてGoogle検索スコープ（site:prtimes.jp "正式社名"）も併用する。
   { name: "三井不動産",     type: "google", kind: "press", dev: "三井", url: encodeURI('https://news.google.com/rss/search?q="三井不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（三井不動産）", kind: "press", dev: "三井", url: encodeURI("https://prtimes.jp/topics/keywords/三井不動産") },
+  { name: "PR TIMES（三井不動産）", type: "google", kind: "press", dev: "三井", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "三井不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "三菱地所",       type: "google", kind: "press", dev: "三菱", url: encodeURI('https://news.google.com/rss/search?q="三菱地所" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（三菱地所）", kind: "press", dev: "三菱", url: encodeURI("https://prtimes.jp/topics/keywords/三菱地所") },
+  { name: "PR TIMES（三菱地所）", type: "google", kind: "press", dev: "三菱", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "三菱地所"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "野村不動産",     type: "google", kind: "press", dev: "野村", url: encodeURI('https://news.google.com/rss/search?q="野村不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
-  // PR TIMES：野村不動産のリリースを追加収集。直RSSを試行し、確実版としてGoogleスコープも併用（重複は後段のdedupで自動除去）。
+  // 野村不動産：事業会社とホールディングスでPR TIMES上のキーワードページが分かれているため両方収集。
   { name: "PR TIMES（野村不動産）", kind: "press", dev: "野村", url: encodeURI("https://prtimes.jp/topics/keywords/野村不動産") },
   { name: "PR TIMES（野村不動産）", type: "google", kind: "press", dev: "野村", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "野村不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（野村不動産ホールディングス）", kind: "press", dev: "野村", url: encodeURI("https://prtimes.jp/topics/keywords/野村不動産ホールディングス") },
+  { name: "PR TIMES（野村不動産ホールディングス）", type: "google", kind: "press", dev: "野村", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "野村不動産ホールディングス"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "東急不動産",     type: "google", kind: "press", dev: "東急", url: encodeURI('https://news.google.com/rss/search?q="東急不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（東急不動産）", kind: "press", dev: "東急", url: encodeURI("https://prtimes.jp/topics/keywords/東急不動産") },
+  { name: "PR TIMES（東急不動産）", type: "google", kind: "press", dev: "東急", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "東急不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "東京建物",       type: "google", kind: "press", dev: "東建", url: encodeURI('https://news.google.com/rss/search?q="東京建物" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（東京建物）", kind: "press", dev: "東建", url: encodeURI("https://prtimes.jp/topics/keywords/東京建物") },
+  { name: "PR TIMES（東京建物）", type: "google", kind: "press", dev: "東建", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "東京建物"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "森ビル",         type: "google", kind: "press", dev: "森",   url: encodeURI('https://news.google.com/rss/search?q="森ビル" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（森ビル）", kind: "press", dev: "森", url: encodeURI("https://prtimes.jp/topics/keywords/森ビル") },
+  { name: "PR TIMES（森ビル）", type: "google", kind: "press", dev: "森", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "森ビル"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "住友不動産",     type: "google", kind: "press", dev: "住友", url: encodeURI('https://news.google.com/rss/search?q="住友不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（住友不動産）", kind: "press", dev: "住友", url: encodeURI("https://prtimes.jp/topics/keywords/住友不動産") },
+  { name: "PR TIMES（住友不動産）", type: "google", kind: "press", dev: "住友", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "住友不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "日鉄興和不動産",  type: "google", kind: "press", dev: "日鉄", url: encodeURI('https://news.google.com/rss/search?q="日鉄興和不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（日鉄興和不動産）", kind: "press", dev: "日鉄", url: encodeURI("https://prtimes.jp/topics/keywords/日鉄興和不動産") },
+  { name: "PR TIMES（日鉄興和不動産）", type: "google", kind: "press", dev: "日鉄", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "日鉄興和不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+
   { name: "日刊工業新聞",  type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:nikkan.co.jp 不動産 再開発 建設 住宅&hl=ja&gl=JP&ceid=JP:ja") },
   { name: "ニュースイッチ", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:newswitch.jp 不動産 再開発 建設 住宅&hl=ja&gl=JP&ceid=JP:ja") },
   { name: "LNEWS",         type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:lnews.jp 物流施設 不動産 開発&hl=ja&gl=JP&ceid=JP:ja") },
@@ -99,6 +126,23 @@ const FEEDS = [
   { name: "SUUMOジャーナル",   url: "https://suumo.jp/journal/feed/" },
   { name: "ITmedia ビジネス",  url: "https://rss.itmedia.co.jp/rss/2.0/business.xml" },
   { name: "東洋経済オンライン", url: "https://toyokeizai.net/list/feed/rss" },
+
+  // ── 官公庁 追加（一次情報。Google site: 検索で拾う）──────
+  { name: "財務省",   type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:mof.go.jp 住宅ローン控除 金利 予算&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "金融庁",   type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:fsa.go.jp 住宅ローン 金利 銀行&hl=ja&gl=JP&ceid=JP:ja") },
+
+  // ── プレスリリース配信プラットフォーム 追加（press扱いは不動産関連語で厳選済みのPRESS_SIGNALに依存）──
+  { name: "＠Press",      type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:atpress.ne.jp 不動産 マンション 再開発&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "共同通信PRワイヤー", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:kyodonewsprwire.jp 不動産 マンション 住宅ローン&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "Dream News",   type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:dreamnews.jp 不動産 マンション&hl=ja&gl=JP&ceid=JP:ja") },
+
+  // ── 専門メディア 追加（Tier2相当。件数の主力を狙う）─────────
+  { name: "不動産経済研究所", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:fudousankeizai.co.jp&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "日刊不動産経済通信", type: "google", url: encodeURI("https://news.google.com/rss/search?q=\"日刊不動産経済通信\"&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "LIFULL HOME'S PRESS", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:homes.co.jp/cont 住宅ローン マンション&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "日経クロステック建設", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:xtech.nikkei.com 建設 再開発 マンション&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "新建築オンライン", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:shinkenchiku.online&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "ダイヤモンド・オンライン", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:diamond.jp 住宅ローン 金利 不動産&hl=ja&gl=JP&ceid=JP:ja") },
 ];
 
 // ───────────────────────────────────────────────────────────
@@ -176,7 +220,7 @@ function detectTags(title) {
 
 // 短縮デベロッパー名タグ（正式名→短縮）。物件名やプレスに付与。
 const DEV_SHORT = [
-  ["三井不動産", "三井"], ["三菱地所", "三菱"], ["野村不動産", "野村"],
+  ["三井不動産", "三井"], ["三菱地所", "三菱"], ["野村不動産ホールディングス", "野村"], ["野村不動産", "野村"],
   ["住友不動産", "住友"], ["東京建物", "東建"], ["日鉄興和不動産", "日鉄"], ["東急不動産", "東急"], ["森ビル", "森"]
 ];
 function devTags(title) {
