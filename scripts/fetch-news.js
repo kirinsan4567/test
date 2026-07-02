@@ -41,6 +41,7 @@ const FEEDS = [
   // ── 横断検索（媒体を絞らず広く拾う）──────────────────────
   { name: "不動産市況", type: "google", url: encodeURI("https://news.google.com/rss/search?q=不動産 マンション 地価 市況&hl=ja&gl=JP&ceid=JP:ja") },
   { name: "金融政策",   type: "google", url: encodeURI("https://news.google.com/rss/search?q=日銀 金融政策 金利 住宅ローン&hl=ja&gl=JP&ceid=JP:ja") },
+  { name: "住宅ローン(横断)", type: "google", url: encodeURI("https://news.google.com/rss/search?q=住宅ローン 金利 借り換え 変動金利 固定金利&hl=ja&gl=JP&ceid=JP:ja") },
 
   // ── ハードニュース（一般紙・通信社。速報性の高い記事を増やす）────
   { name: "日本経済新聞", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:nikkei.com 住宅ローン 金利 不動産 マンション&hl=ja&gl=JP&ceid=JP:ja") },
@@ -93,6 +94,14 @@ const FEEDS = [
   { name: "日鉄興和不動産",  type: "google", kind: "press", dev: "日鉄", url: encodeURI('https://news.google.com/rss/search?q="日鉄興和不動産" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
   { name: "PR TIMES（日鉄興和不動産）", kind: "press", dev: "日鉄", url: encodeURI("https://prtimes.jp/topics/keywords/日鉄興和不動産") },
   { name: "PR TIMES（日鉄興和不動産）", type: "google", kind: "press", dev: "日鉄", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "日鉄興和不動産"&hl=ja&gl=JP&ceid=JP:ja') },
+
+  { name: "大和ハウス工業",  type: "google", kind: "press", dev: "大和", url: encodeURI('https://news.google.com/rss/search?q="大和ハウス工業" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（大和ハウス工業）", kind: "press", dev: "大和", url: encodeURI("https://prtimes.jp/topics/keywords/大和ハウス工業") },
+  { name: "PR TIMES（大和ハウス工業）", type: "google", kind: "press", dev: "大和", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "大和ハウス工業"&hl=ja&gl=JP&ceid=JP:ja') },
+
+  { name: "積水ハウス",     type: "google", kind: "press", dev: "積水", url: encodeURI('https://news.google.com/rss/search?q="積水ハウス" -採用 -人事 -株価&hl=ja&gl=JP&ceid=JP:ja') },
+  { name: "PR TIMES（積水ハウス）", kind: "press", dev: "積水", url: encodeURI("https://prtimes.jp/topics/keywords/積水ハウス") },
+  { name: "PR TIMES（積水ハウス）", type: "google", kind: "press", dev: "積水", url: encodeURI('https://news.google.com/rss/search?q=site:prtimes.jp "積水ハウス"&hl=ja&gl=JP&ceid=JP:ja') },
 
   { name: "日刊工業新聞",  type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:nikkan.co.jp 不動産 再開発 建設 住宅&hl=ja&gl=JP&ceid=JP:ja") },
   { name: "ニュースイッチ", type: "google", url: encodeURI("https://news.google.com/rss/search?q=site:newswitch.jp 不動産 再開発 建設 住宅&hl=ja&gl=JP&ceid=JP:ja") },
@@ -151,9 +160,9 @@ const FEEDS = [
 // ───────────────────────────────────────────────────────────
 const TAG_GROUPS = [
   { label: "金利・日銀",   keywords: ["日銀", "利上げ", "利下げ", "政策金利", "金融政策", "金利", "変動金利", "固定金利"] },
-  { label: "住宅ローン",   keywords: ["住宅ローン", "ローン", "繰上返済", "繰り上げ返済", "借入", "借り入れ", "団信", "フラット35", "控除", "減税"] },
-  { label: "不動産・市場", keywords: ["不動産", "マンション", "タワマン", "タワーマンション", "戸建", "新築", "中古", "分譲", "地価", "住宅価格", "市況", "賃貸"] },
-  { label: "開発・デベロッパー", keywords: ["デベロッパー", "ディベロッパー", "再開発", "都市開発", "大規模開発", "三井不動産", "三菱地所", "住友不動産", "野村不動産", "東急不動産", "森ビル", "大和ハウス", "積水ハウス", "住友林業", "東京建物", "日鉄興和不動産"] }
+  { label: "住宅ローン",   keywords: ["住宅ローン", "繰上返済", "繰り上げ返済", "借入", "借り入れ", "団信", "フラット35", "控除", "減税"] },
+  { label: "不動産・市場", keywords: ["不動産", "マンション", "タワマン", "タワーマンション", "戸建", "新築", "中古", "分譲", "地価", "住宅価格", "市況", "賃貸", "湾岸"] },
+  { label: "開発・デベロッパー", keywords: ["デベロッパー", "ディベロッパー", "再開発", "都市開発", "大規模開発", "竣工", "着工", "三井不動産", "三菱地所", "住友不動産", "野村不動産", "東急不動産", "森ビル", "大和ハウス", "積水ハウス", "住友林業", "東京建物", "日鉄興和不動産"] }
 ];
 
 // ───────────────────────────────────────────────────────────
@@ -221,24 +230,63 @@ function detectTags(title) {
 // 短縮デベロッパー名タグ（正式名→短縮）。物件名やプレスに付与。
 const DEV_SHORT = [
   ["三井不動産", "三井"], ["三菱地所", "三菱"], ["野村不動産ホールディングス", "野村"], ["野村不動産", "野村"],
-  ["住友不動産", "住友"], ["東京建物", "東建"], ["日鉄興和不動産", "日鉄"], ["東急不動産", "東急"], ["森ビル", "森"]
+  ["住友不動産", "住友"], ["東京建物", "東建"], ["日鉄興和不動産", "日鉄"], ["東急不動産", "東急"], ["森ビル", "森"],
+  ["大和ハウス工業", "大和"], ["大和ハウス", "大和"], ["積水ハウス", "積水"]
 ];
+
+// マンションブランド名からもデベロッパーを推定する。
+// 実際の記事タイトルは「三井不動産、○○を発売」より「パークコート○○発売」のように
+// 社名を出さずブランド名だけのことが非常に多いため、これが無いと開発者タグが付かない。
+const BRAND_SHORT = [
+  // 三井不動産
+  ["パークコート", "三井"], ["パークホームズ", "三井"], ["パークタワー", "三井"], ["パークシティ", "三井"],
+  ["パークアクシス", "三井"], ["パークリュクス", "三井"], ["パークマンション", "三井"],
+  // 三菱地所
+  ["パークハウス", "三菱"], ["パークワンズ", "三菱"],
+  // 野村不動産
+  ["プラウドタワー", "野村"], ["プラウド", "野村"], ["オハナ", "野村"],
+  // 住友不動産
+  ["シティハウス", "住友"], ["シティテラス", "住友"], ["シティタワー", "住友"], ["グランドヒルズ", "住友"], ["ガーデンハウス", "住友"],
+  // 東急不動産
+  ["ブランズ", "東急"],
+  // 東急リバブル（東急不動産とは別タグで管理）
+  ["ルジェンテ", "東急リ"],
+  // 東京建物
+  ["ブリリア", "東建"],
+  // 日鉄興和不動産
+  ["グランリビオ", "日鉄"], ["リビオ", "日鉄"],
+  // 積水ハウス
+  ["グランドメゾン", "積水"],
+  // 大和ハウス工業
+  ["プレミスト", "大和"],
+  // 新規（専用の収集フィードはまだ無く、タグ付けのみ対応）
+  ["ローレルコート", "近鉄"], ["ローレルアイ", "近鉄"],           // 近鉄不動産
+  ["クレヴィア", "伊藤忠"],                                        // 伊藤忠（都市開発）
+  ["ディアナコート", "モリモト"], ["ピアース", "モリモト"],        // モリモト
+  ["クラッシィ", "住友商事"],                                      // 住友商事（住友不動産とは別会社）
+  ["アトラス", "旭化成"],                                          // 旭化成不動産レジデンス
+  ["クリオ", "明和地所"],                                          // 明和地所
+  ["オープンレジデンシア", "OH"], ["イノバス", "OH"], ["イノベイシア", "OH"], // オープンハウス
+];
+
 function devTags(title) {
   const t = title || "";
-  return DEV_SHORT.filter(([full]) => t.includes(full)).map(([, sh]) => sh);
+  const fromCompany = DEV_SHORT.filter(([full]) => t.includes(full)).map(([, sh]) => sh);
+  const fromBrand = BRAND_SHORT.filter(([brand]) => t.includes(brand)).map(([, sh]) => sh);
+  return Array.from(new Set([...fromCompany, ...fromBrand]));
 }
 
 // プレスリリース選別用
 //  ・JUNK: ログイン/採用/会社情報など、プレスでないページを除外
 //  ・PRESS_SIGNAL: 開発・竣工・取得・開業・決算 等「発表らしい語」。pressはこれを含むもののみ採用
 const JUNK = ["ログイン", "ログアウト", "会員", "マイページ", "採用", "求人", "エントリー", "新卒", "中途",
-  "お問い合わせ", "プライバシー", "個人情報", "サイトマップ", "利用規約", "アクセス", "会社概要", "企業情報",
+  "お問い合わせ", "プライバシー", "個人情報", "サイトマップ", "利用規約", "会社概要", "企業情報",
   "よくあるご質問", "メンテナンス", "404", "Not Found", "ページが見つかりません"];
 const PRESS_SIGNAL = ["竣工", "着工", "起工", "完成", "取得", "売却", "開業", "開発", "再開発", "分譲", "賃貸",
   "リニューアル", "改修", "建替", "締結", "提携", "出店", "開設", "プロジェクト", "タワー", "マンション",
   "オフィス", "商業施設", "ホテル", "物流施設", "まちづくり", "用地", "区画", "街区",
-  "決算", "業績", "増益", "営業利益", "受注", "販売", "供給", "新築", "リーシング",
-  "グランドオープン", "取得", "分譲開始", "竣功"];
+  "決算", "業績", "増益", "営業利益", "受注", "販売", "供給", "新築", "新発売", "発売開始", "リーシング",
+  "グランドオープン", "分譲開始", "竣功"];
 const isJunk = t => JUNK.some(k => (t || "").includes(k));
 const isPressRelevant = t => PRESS_SIGNAL.some(k => (t || "").includes(k));
 
