@@ -17,6 +17,13 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15   # ← ハングして後続実行が詰まるのを防ぐ
+
+    # scripts / data が insights/ 配下にあるため、以降のrunはこのディレクトリで実行
+    defaults:
+      run:
+        working-directory: insights
+
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +39,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/news.json
+          git add data/news.json data/news_updated.json
           git commit -m "update news [skip ci]" || echo "no changes"
           git pull --rebase --autostash origin main
           git push
