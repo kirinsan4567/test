@@ -19,11 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15   # ← ハングして後続実行が詰まるのを防ぐ
 
-    # scripts / data が insights/ 配下にあるため、以降のrunはこのディレクトリで実行
-    defaults:
-      run:
-        working-directory: insights
-
     steps:
       - uses: actions/checkout@v4
 
